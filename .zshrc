@@ -258,6 +258,9 @@ if [ -f /etc/zsh_command_not_found ]; then
 fi
 
 # My Aliases
+
+
+
 fman(){
     if [[ -n $* ]]; then
         whence -wm '*' | sed 's/:[^:]*$//' | fzf --query $1| xargs man
@@ -279,3 +282,6 @@ lscommands(){
 	whence -wm '*' | sed 's/:[^:]*$//' | grep --invert-match --no-filename "\." > $1 && vim $1
  }
 
+ google(){
+	 surfraw google $1 -browser=lynx
+ }
