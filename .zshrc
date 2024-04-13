@@ -246,8 +246,8 @@ alias la='ls -A'
 alias l='ls -CF'
 
 # enable auto-suggestions based on the history
-if [ /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-    . /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    . /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
     # change suggestion color
     ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
 fi
@@ -303,6 +303,12 @@ lscommands(){
 
  google(){
 	 surfraw google $1 -browser=lynx
+ 
  }
-
-source /home/slotharch/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [ -f ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+       	source ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+else
+	echo "Can't find zsh-syntax-highlighing, downloading from git"
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~
+       	source ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
