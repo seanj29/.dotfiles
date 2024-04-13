@@ -72,6 +72,9 @@ set directory=$HOME/.vim/.swp//
 " Enable auto completion menu after pressing TAB.
 set wildmenu
 
+" set wrap text atr end of the word, preventing it from being split in  two
+set linebreak
+
 " Make wildmenu behave like similar to Bash completion.
 set wildmode=list:longest
 
@@ -82,7 +85,7 @@ set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 inoremap jj <Esc>
 
 
-nnoremap s :set spell! <cr> 	
+nnoremap S :set spell! <cr> 	
 
 " }}}
 

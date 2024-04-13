@@ -257,9 +257,28 @@ if [ -f /etc/zsh_command_not_found ]; then
     . /etc/zsh_command_not_found
 fi
 
+# Personal exports
+
+export BROWSER=/usr/bin/lynx
+
+export EDITOR=/usr/bin/vim
+
 # My Aliases
+alias lol='powershell.exe -Command lol; exit'
 
+gita(){
+	git add .
 
+}
+
+exp(){
+	if [[ -n $* ]]; then
+		explorer.exe $1  
+	else
+		echo "Use at least 1 argument to navigate to the specific file / url"
+		explorer.exe
+	fi
+}
 
 fman(){
     if [[ -n $* ]]; then
