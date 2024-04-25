@@ -263,8 +263,11 @@ export BROWSER=/usr/bin/lynx
 
 export EDITOR=/usr/bin/vim
 
+export PATH=$PATH:/home/slotharch/.local/bin
 # My Aliases
 alias lol='powershell.exe -Command lol; exit'
+
+alias cd='z'
 
 gita(){
 	git add .
@@ -312,3 +315,5 @@ else
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~
        	source ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
+
+eval "$(zoxide init zsh)"
