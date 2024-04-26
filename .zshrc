@@ -257,15 +257,27 @@ if [ -f /etc/zsh_command_not_found ]; then
     . /etc/zsh_command_not_found
 fi
 
+setopt glob_dots
+
+setopt no_clobber
+
 # Personal exports
 
-export BROWSER=/usr/bin/lynx
+export BROWSER=/usr/bin/firefox
 
 export EDITOR=/usr/bin/vim
 
 export PATH=$PATH:/home/slotharch/.local/bin
+
+export GTK_THEME=Arc:dark
+
+export QT_STYLE_OVERRIDE=Arc-Dark 
+
+
 # My Aliases
 alias lol='powershell.exe -Command lol; exit'
+
+alias discord='/mnt/c/Users/seano/AppData/Local/Discord/Update.exe --processStart Discord.exe'
 
 alias cd='z'
 
