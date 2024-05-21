@@ -32,3 +32,9 @@ function Run-League {
 # Adds lol as an Alias for new "Run-League" Function
 
 New-Alias -Name lol -Value Run-League
+
+New-Alias -Name vim -Value nvim
+
+oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/cinnamon.omp.json" | Invoke-Expression
+
+Invoke-Expression (& { (zoxide init --cmd cd powershell | Out-String) })
