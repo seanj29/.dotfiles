@@ -2,10 +2,6 @@
 
 Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
 
-#Adds dig as an Alias for Resolve-DnsName
-
-New-Alias -Name dig -Value Resolve-DnsName
-
 function Run-League {
 <#
 
@@ -28,12 +24,13 @@ function Run-League {
 	if (!$DontExit)
 		{ exit}	
 }
-
 # Adds lol as an Alias for new "Run-League" Function
 
 New-Alias -Name lol -Value Run-League
 
-New-Alias -Name vim -Value nvim
+#Adds dig as an Alias for Resolve-DnsName
+
+New-Alias -Name dig -Value Resolve-DnsName
 
 oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/catppuccin.omp.json" | Invoke-Expression
 
