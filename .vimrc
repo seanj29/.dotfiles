@@ -101,7 +101,8 @@ nnoremap S :set spell! <cr>
 
 set termguicolors
 colorscheme catppuccin_mocha
-
+let g:lightline = {'colorscheme': 'catppuccin_mocha'}
+set noshowmode
 " }}}
 
 " Add optional packages.
