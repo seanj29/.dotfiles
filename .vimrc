@@ -7,7 +7,12 @@ call plug#begin()
 
 " List your plugins here
 
-Plug 'ycm-core/YouCompleteMe', { 'do': 'python install.py' }
+if has('nvim')
+	Plug 'ycm-core/YouCompleteMe', { 'do': 'python install.py' }
+elseif !has('nvim')
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+endif
+
 Plug 'habamax/vim-godot'
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'itchyny/lightline.vim'
