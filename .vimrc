@@ -23,12 +23,13 @@ call plug#begin()
 
 " List your plugins here
 
-Plug 'ycm-core/YouCompleteMe'
+Plug 'ycm-core/YouCompleteMe', { 'do': 'python install.py' }
 Plug 'habamax/vim-godot'
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+Plug 'itchyny/lightline.vim'
 
 call plug#end()
-
+" }}}
 
 if v:progname =~? "evim"
   finish
@@ -103,6 +104,13 @@ inoremap jj <Esc>
 
 
 nnoremap S :set spell! <cr> 	
+
+" }}}
+
+" THEMING --------------------------------------------------------------- {{{
+
+set termguicolors
+colorscheme catppuccin_mocha
 
 " }}}
 
