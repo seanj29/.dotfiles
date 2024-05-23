@@ -1,19 +1,3 @@
-" An example for a vimrc file.
-"
-" Maintainer:	The Vim Project <https://github.com/vim/vim>
-" Last Change:	2023 Aug 10
-" Former Maintainer:	Bram Moolenaar <Bram@vim.org>
-"
-" To use it, copy it to
-"	       for Unix:  ~/.vimrc
-"	      for Amiga:  s:.vimrc
-"	 for MS-Windows:  $VIM\_vimrc
-"	      for Haiku:  ~/config/settings/vim/vimrc
-"	    for OpenVMS:  sys$login:.vimrc
-
-" When started as "evim", evim.vim will already have done these settings, bail
-" out.
-
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -35,8 +19,9 @@ if v:progname =~? "evim"
   finish
 endif
 
-" Get the defaults that most users want.
-source $VIMRUNTIME/defaults.vim
+if !has('nvim')
+	source $VIMRUNTIME/defaults.vim
+endif
 
 let g:markdown_fenced_languages = ['html', 'js=javascript', 'ruby', 'cpp']
 
