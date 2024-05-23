@@ -13,6 +13,23 @@
 
 " When started as "evim", evim.vim will already have done these settings, bail
 " out.
+
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" VIM-PLUG --------------------------------------------------------------- {{{
+
+call plug#begin()
+
+" List your plugins here
+
+Plug 'ycm-core/YouCompleteMe'
+Plug 'habamax/vim-godot'
+Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+
+call plug#end()
+
+
 if v:progname =~? "evim"
   finish
 endif
@@ -99,5 +116,17 @@ if has('syntax') && has('eval')
   packadd! matchit
 endif
 
+if !has_key( g:, 'ycm_language_server' )
+  let g:ycm_language_server = []
+endif
+
+let g:ycm_language_server += [
+  \   {
+  \     'name': 'godot',
+  \     'filetypes': [ 'gdscript' ],
+  \     'project_root_files': [ 'project.godot' ],
+  \     'port': 6005
+  \   }
+  \ ]
 
 
