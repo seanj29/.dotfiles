@@ -8,9 +8,9 @@ call plug#begin()
 " List your plugins here
 
 if has('nvim')
-	Plug 'ycm-core/YouCompleteMe', { 'do': 'python install.py' }
-elseif !has('nvim')
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+elseif !has('nvim')
+	Plug 'ycm-core/YouCompleteMe', { 'do': 'python install.py' }
 endif
 
 Plug 'habamax/vim-godot'
