@@ -6,13 +6,8 @@ filetype off                  " required
 call plug#begin()
 
 " List your plugins here
-
-if has('nvim')
-	Plug 'neoclide/coc.nvim', {'branch': 'release'}
-elseif !has('nvim')
-	Plug 'ycm-core/YouCompleteMe', { 'do': 'python install.py' }
-endif
-
+" Tried YouCompleteMe, it fucked up my cursor so kinda gave up on it
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'skywind3000/asyncrun.vim'
 Plug 'habamax/vim-godot'
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
