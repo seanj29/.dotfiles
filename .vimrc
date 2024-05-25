@@ -26,6 +26,8 @@ endif
 
 let g:markdown_fenced_languages = ['html', 'js=javascript', 'ruby', 'cpp']
 
+let mapleader = ',' 
+
 " VIMSCRIPT -------------------------------------------------------------- {{{
 if has("vms")
   set nobackup		" do not keep a backup file, use versions instead
