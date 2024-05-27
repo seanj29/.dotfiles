@@ -1,6 +1,3 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
 " VIM-PLUG --------------------------------------------------------------- {{{
 
 call plug#begin()
@@ -12,6 +9,8 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'habamax/vim-godot'
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'itchyny/lightline.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 call plug#end()
 " }}}
@@ -27,6 +26,8 @@ endif
 let g:markdown_fenced_languages = ['html', 'js=javascript', 'ruby', 'cpp']
 
 let mapleader = ',' 
+
+let g:asyncrun_status = ''
 
 " VIMSCRIPT -------------------------------------------------------------- {{{
 if has("vms")
@@ -96,10 +97,19 @@ nnoremap S :set spell! <cr>
 " }}}
 
 " THEMING --------------------------------------------------------------- {{{
-
 set termguicolors
 colorscheme catppuccin_mocha
-let g:lightline = {'colorscheme': 'catppuccin_mocha'}
+let g:lightline = {
+		\'colorscheme': 'catppuccin_mocha',
+		\ 'active':{
+		\ 	'right': [ ['lineinfo' ],
+		\ 		   [ 'percent' ],
+		\ 		   ['fileformat', 'fileencoding', 'filetype', 'runstatus'] ]
+		\ },
+		\ 'component': {
+		\  'runstatus': '%{g:asyncrun_status}'
+		\ },
+		\ }
 set laststatus=2
 set noshowmode
 " }}}
@@ -117,7 +127,8 @@ endif
 " GODOT  --------------------------------------------------------------- {{{
 
 func! GodotSettings() abort
-	setlocal foldmethod=expr
+	" setlocal foldmethod=expr
+	setlocal shiftwidth=4
 	setlocal tabstop=4
 	nnoremap <buffer> <F4> :GodotRunLast<CR>
 	nnoremap <buffer> <F5> :GodotRun<CR>
@@ -130,6 +141,10 @@ augroup end
 
 " }}}
 
+
+" ASYNCRUN  --------------------------------------------------------------- {{{
+let g:asyncrun_open = 8
+" }}}
 
 " COCSETUP  --------------------------------------------------------------- {{{
 
