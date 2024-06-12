@@ -31,7 +31,7 @@ let g:markdown_fenced_languages = ['html', 'js=javascript', 'ruby', 'cpp']
 
 let mapleader = ',' 
 
-let g:asyncrun_status = ''
+nmap <F8> :TagbarToggle<CR>
 
 let g:rustfmt_autosave = 1
 
@@ -112,13 +112,9 @@ let g:lightline = {
 		\'colorscheme': 'catppuccin_mocha',
 		\ 'active':{
 		\ 	'right': [ ['lineinfo' ],
-		\ 		   [ 'percent' ],
-		\ 		   ['fileformat', 'fileencoding', 'filetype', 'runstatus'] ],
+		\ 		   ['fileformat', 'fileencoding', 'filetype'] ],
 		\       'left':[ [ 'mode', 'paste' ],
 		\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]	
-		\ },
-		\ 'component': {
-		\  'runstatus': '%{g:asyncrun_status}'
 		\ },
 		\ 'component_function': {
 		\   'gitbranch': 'FugitiveHead',
