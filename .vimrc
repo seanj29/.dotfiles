@@ -11,8 +11,12 @@ Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'rust-lang/rust.vim'
+Plug 'preservim/tagbar'
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
+
 " }}}
 
 if v:progname =~? "evim"
@@ -29,6 +33,9 @@ let mapleader = ','
 
 let g:asyncrun_status = ''
 
+let g:rustfmt_autosave = 1
+
+let g:tagbar_ctags_bin = 'C:\Users\seano\Downloads\ctags-v6.1.0-x64\ctags.exe'
 " VIMSCRIPT -------------------------------------------------------------- {{{
 if has("vms")
   set nobackup		" do not keep a backup file, use versions instead
@@ -99,19 +106,36 @@ nnoremap S :set spell! <cr>
 " THEMING --------------------------------------------------------------- {{{
 set termguicolors
 colorscheme catppuccin_mocha
+
+
 let g:lightline = {
 		\'colorscheme': 'catppuccin_mocha',
 		\ 'active':{
 		\ 	'right': [ ['lineinfo' ],
 		\ 		   [ 'percent' ],
-		\ 		   ['fileformat', 'fileencoding', 'filetype', 'runstatus'] ]
+		\ 		   ['fileformat', 'fileencoding', 'filetype', 'runstatus'] ],
+		\       'left':[ [ 'mode', 'paste' ],
+		\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]	
 		\ },
 		\ 'component': {
 		\  'runstatus': '%{g:asyncrun_status}'
 		\ },
+		\ 'component_function': {
+		\   'gitbranch': 'FugitiveHead',
+		\   'fileformat': 'LightlineFileformat',
+		\   'filetype': 'LightlineFiletype',
+		\ },
 		\ }
 set laststatus=2
 set noshowmode
+
+function! LightlineFileformat()
+	return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! LightlineFiletype()
+	return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+endfunction
 " }}}
 
 " Add optional packages.
@@ -140,7 +164,6 @@ augroup godot | au!
 augroup end
 
 " }}}
-
 
 " ASYNCRUN  --------------------------------------------------------------- {{{
 let g:asyncrun_open = 8
@@ -189,6 +212,17 @@ inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use K to show documentation in preview window
 
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+	if CocAction('hasProvider', 'hover')
+	      call CocActionAsync('doHover')
+	else
+	      call feedkeys('K', 'in')
+       endif
+endfunction
+
+
 " Use `[g` and `]g` to navigate diagnostics
 " " Use `:CocDiagnostics` to get all diagnostics of current buffer in location
 "
@@ -200,21 +234,54 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-
-nnoremap <silent> K :call ShowDocumentation()<CR>
-
-function! ShowDocumentation()
-	if CocAction('hasProvider', 'hover')
-	      call CocActionAsync('doHover')
-	else
-	      call feedkeys('K', 'in')
-       endif
-endfunction
-
 " Highlight the symbol and its references when holding the cursor
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming
 nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+	autocmd!
+	" Setup formatexpr specified filetype(s)
+	autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+	" Update signature help on jump placeholder
+	autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Applying code actions to the selected code block
+" " Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+"
+" " Remap keys for applying code actions at the cursor position
+" nmap <leader>ac  <Plug>(coc-codeaction-cursor)
+" " Remap keys for apply code actions affect whole buffer
+nmap <leader>as  <Plug>(coc-codeaction-source)
+" " Apply the most preferred quickfix action to fix diagnostic on the current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" " Remap keys for applying refactor code actions
+nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
+xmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+
+" Run the Code Lens action on the current line
+ nmap <leader>cl  <Plug>(coc-codelens-action)
+
+" Map function and class text objects
+" " NOTE: Requires 'textDocument.documentSymbol' support from the language server
+
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
 
 " }}}

@@ -30,7 +30,7 @@ crust: &crust "#11111b"
 
 general:
   # Whether to automatically focus windows underneath the cursor.
-  focus_follows_cursor: true
+  focus_follows_cursor: false
 
   # Whether to jump the cursor between windows focused by the WM.
   cursor_follows_focus: false
@@ -73,7 +73,7 @@ focus_borders:
 
 bar:
   height: "30px"
-  always_on_top: true
+  always_on_top: false
   position: "top"
   opacity: 1.0
   background: *crust
@@ -92,7 +92,7 @@ bar:
    
   components_center:
     - type: "window title"
-   
+      font_weight: "700"
 
   components_right:
     - type: "system tray"
@@ -144,7 +144,15 @@ window_rules:
   # Launches system dialogs as floating by default (eg. File Explorer save/open dialog).
   - command: "set floating"
     match_class_name: "#32770"
+  
+  - command: "set floating"
+    match_process_name: "godot"
+    match_title: "/^((?!Engine).)*$/"
 
+  - command: "ignore"
+    match_process_name: "LeagueClient.exe"
+  - command: "ignore"
+    match_process_name: "League of Legends.exe"
   # Do not manage picture-in-picture windows for browsers. Note that the default is for
   # English; change `match_title` to the window's title if you use another language.
   - command: "ignore"
@@ -243,9 +251,6 @@ keybindings:
   # to start Windows Terminal and Git Bash respectively.
   - command: "exec wt"
     binding: "Alt+Enter"
-
-  - command: "exec C:\\Users\\seano\\AppData\\Local\\FlowLauncher\\Flow.Launcher.exe"
-    binding: "Alt+X"
   
   - command: "exec explorer"
     binding: "Alt+E"
