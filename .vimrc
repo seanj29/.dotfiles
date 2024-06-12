@@ -117,7 +117,7 @@ let g:lightline = {
 		\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]	
 		\ },
 		\ 'component_function': {
-		\   'gitbranch': 'FugitiveHead',
+		\   'gitbranch': 'GitNoSmall',
 		\   'fileformat': 'LightlineFileformat',
 		\   'filetype': 'LightlineFiletype',
 		\ },
@@ -129,6 +129,9 @@ function! LightlineFileformat()
 	return winwidth(0) > 70 ? &fileformat : ''
 endfunction
 
+function! GitNoSmall()
+	return winwidth(0) > 70 ? FugitiveHead() : ''
+endfunction
 function! LightlineFiletype()
 	return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
 endfunction
