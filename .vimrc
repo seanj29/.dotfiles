@@ -71,7 +71,7 @@ augroup END
 " MAPPINGS --------------------------------------------------------------- {{{
 
 " Add numbers to each line on the left-hand side.
-set number
+set relativenumber
 
 " Override the ignorecase option if searching for capital letters.
 " This will allow you to search specifically for capital letters.
