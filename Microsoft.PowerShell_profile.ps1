@@ -32,6 +32,8 @@ New-Alias -Name lol -Value Run-League
 
 New-Alias -Name dig -Value Resolve-DnsName
 
+Set-PsFzfOption -EnableAliasFuzzyEdit -TabExpansion -EnableAliasFuzzyGitStatus 
+
 $ENV:FZF_DEFAULT_OPTS=@"
 --preview `"bat --color=always --style=auto --line-range=:500 {}`"
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8
