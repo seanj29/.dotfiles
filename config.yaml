@@ -126,9 +126,24 @@ bar:
 
 workspaces:
   - name: "1"
+    display_name: "Work"
   - name: "2"
+    
+    display_name: "Discord + Social"
+
+    bind_to_monitor: 2
+
+    keep_alive: true
+
   - name: "3"
+    display_name: "Games + extra"
+
   - name: "4"
+    display_name: "Browser general"
+
+    bind_to_monitor: 2
+
+    keep_alive: true
   - name: "5"
   - name: "6"
   - name: "7"
@@ -153,6 +168,8 @@ window_rules:
     match_process_name: "LeagueClient.exe"
   - command: "ignore"
     match_process_name: "League of Legends.exe"
+  - command: "move to workspace 2"
+    match_process_name: "Discord.exe"
   # Do not manage picture-in-picture windows for browsers. Note that the default is for
   # English; change `match_title` to the window's title if you use another language.
   - command: "ignore"
