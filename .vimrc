@@ -19,19 +19,6 @@ call plug#end()
 
 " }}}
 
-" PYTHON --------------------------------------------------------------- {{{
-if has ('python3')
-py3 << EOF
-import os
-import subprocess
-if 'VIRTUAL_ENV' in os.environ:
-	project_base_dir = os.environ['VIRTUAL_ENV']
-	activate_this = os.path.join(project_base_dir, 'Scripts\Activate.ps1')
-	subprocess.run(["powershell", activate_this])
-EOF
-endif
-" }}}
-
 if v:progname =~? "evim"
   finish
 endif
@@ -143,7 +130,7 @@ function! LightlineFileformat()
 endfunction
 
 function! GitNoSmall()
-	return winwidth(0) > 70 ? FugitiveHead() : ''
+	return winwidth(0) > 70 && exists('*FugitiveHead') ? FugitiveHead() : ''
 endfunction
 function! LightlineFiletype()
 	return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
