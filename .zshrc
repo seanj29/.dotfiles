@@ -286,6 +286,7 @@ export QT_STYLE_OVERRIDE=Arc-Dark
 # My Aliases
 alias lol='powershell.exe -Command lol; exit'
 
+alias nb='newsboat'
 alias discord='/mnt/c/Users/seano/AppData/Local/Discord/Update.exe --processStart Discord.exe'
 
 alias cd='z'
