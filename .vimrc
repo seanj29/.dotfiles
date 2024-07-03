@@ -1,5 +1,18 @@
 " VIM-PLUG --------------------------------------------------------------- {{{
 
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+
+" Install vim-plug if not found
+if empty(glob(data_dir . '/autoload/plug.vim)'))
+	silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+endif
+
+" Run PlugInstall if there are any missing plugins
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+			\| PlugInstall --sync | source $MYVIMRC
+			\| endif
+
+
 call plug#begin()
 
 " List your plugins here
@@ -142,10 +155,6 @@ endfunction
 " The matchit plugin makes the % command work better, but it is not backwards
 " compatible.
 " The ! means the package won't be loaded right away but when plugins are
-" loaded during initialization.
-if has('syntax') && has('eval')
-  packadd! matchit
-endif
 
 " GODOT  --------------------------------------------------------------- {{{
 
@@ -167,7 +176,6 @@ augroup end
 " ASYNCRUN  --------------------------------------------------------------- {{{
 let g:asyncrun_open = 8
 " }}}
-
 " COCSETUP  --------------------------------------------------------------- {{{
 
 " May need for Vim (not Neovim) since coc.nvim calculates byte offset by count
