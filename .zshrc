@@ -309,6 +309,13 @@ if [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; th
     ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
 fi
 
+
+if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    # change suggestion color
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
+fi
+
 # enable command-not-found if installed
 if [ -f /etc/zsh_command_not_found ]; then
     . /etc/zsh_command_not_found
@@ -318,7 +325,13 @@ fi
 
 export EDITOR=/usr/bin/vim
 
+if [[ -d $HOME/bin ]]; then
+	export PATH=$PATH:$HOME/bin
+fi
 
+if [[ -d $HOME/.local/bin ]]; then
+	export PATH=$PATH:$HOME/.local/bin
+fi
 # My Aliases
 alias nb='newsboat'
 
@@ -413,4 +426,4 @@ else
        	source ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
-eval "$(zoxide init --cmd cd zsh)"
+eval "$(zoxide init zsh)"
