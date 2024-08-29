@@ -1,6 +1,17 @@
 # ~/.zshrc file for zsh interactive shells.
 # see /usr/share/doc/zsh/examples/zshrc for examples
 #
+
+
+# Arch Linux command-not-found support, you must have package pkgfile installed
+# https://wiki.archlinux.org/index.php/Pkgfile#.22Command_not_found.22_hook
+[[ -e /usr/share/doc/pkgfile/command-not-found.zsh ]] && source /usr/share/doc/pkgfile/command-not-found.zsh
+
+# Advanced command-not-found hook
+[[ -e /usr/share/doc/find-the-command/ftc.zsh ]] && source /usr/share/doc/find-the-command/ftc.zsh
+
+
+
 autoload -Uz vcs_info
 
 precmd_vcs_info() 
@@ -253,6 +264,39 @@ if [ -x /usr/bin/dircolors ]; then
     zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 fi
 
+# Control Left - go back a word
+key[Control-Left]="${terminfo[kLFT5]}"
+if [[ -n "${key[Control-Left]}"  ]]; then
+	bindkey -M emacs "${key[Control-Left]}"  backward-word
+	bindkey -M viins "${key[Control-Left]}"  backward-word
+	bindkey -M vicmd "${key[Control-Left]}"  backward-word
+fi
+
+# Control Left - go forward a word
+key[Control-Right]="${terminfo[kRIT5]}"
+if [[ -n "${key[Control-Right]}" ]]; then
+	bindkey -M emacs "${key[Control-Right]}" forward-word
+	bindkey -M viins "${key[Control-Right]}" forward-word
+	bindkey -M vicmd "${key[Control-Right]}" forward-word
+fi
+
+# Alt Left - go back a word
+key[Alt-Left]="${terminfo[kLFT3]}"
+if [[ -n "${key[Alt-Left]}"  ]]; then
+	bindkey -M emacs "${key[Alt-Left]}"  backward-word
+	bindkey -M viins "${key[Alt-Left]}"  backward-word
+	bindkey -M vicmd "${key[Alt-Left]}"  backward-word
+fi
+
+# Control Right - go forward a word
+key[Alt-Right]="${terminfo[kRIT3]}"
+if [[ -n "${key[Alt-Right]}" ]]; then
+	bindkey -M emacs "${key[Alt-Right]}" forward-word
+	bindkey -M viins "${key[Alt-Right]}" forward-word
+	bindkey -M vicmd "${key[Alt-Right]}" forward-word
+fi
+
+
 # some more ls aliases
 alias ll='ls -l'
 alias la='ls -A'
@@ -265,6 +309,13 @@ if [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; th
     ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
 fi
 
+
+if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    # change suggestion color
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
+fi
+
 # enable command-not-found if installed
 if [ -f /etc/zsh_command_not_found ]; then
     . /etc/zsh_command_not_found
@@ -272,24 +323,17 @@ fi
 
 # Personal exports
 
-export BROWSER=/usr/bin/firefox
-
 export EDITOR=/usr/bin/vim
 
-export PATH=$PATH:/home/slotharch/.local/bin
+if [[ -d $HOME/bin ]]; then
+	export PATH=$PATH:$HOME/bin
+fi
 
-export GTK_THEME=Arc:dark
-
-export QT_STYLE_OVERRIDE=Arc-Dark 
-
-
+if [[ -d $HOME/.local/bin ]]; then
+	export PATH=$PATH:$HOME/.local/bin
+fi
 # My Aliases
-alias lol='powershell.exe -Command lol; exit'
-
 alias nb='newsboat'
-alias discord='/mnt/c/Users/seano/AppData/Local/Discord/Update.exe --processStart Discord.exe'
-
-alias cd='z'
 
 gita(){
 	git add .

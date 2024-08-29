@@ -1,0 +1,31 @@
+# Comments and blank lines are allowed.
+
+RCS
+.+,v
+
+CVS
+\.\#.+       # CVS conflict files / emacs lock files
+\.cvsignore
+
+\.svn
+_darcs
+\.hg
+
+config.yaml
+en.utf-8.add.spl
+settings.json
+Microsoft.PowerShell_profile.ps1
+en.utf-8.add
+.gitconfig
+.zsh_history
+
+\.git
+\.gitignore
+\.gitmodules
+
+.+~          # emacs backup files
+\#.*\#       # emacs autosave files
+
+^/README.*
+^/LICENSE.*
+^/COPYING
