@@ -24,6 +24,12 @@ function Run-League {
 	if (!$DontExit)
 		{ exit}	
 }
+
+function Open-Conda-Env {
+
+& C:\Users\seano\miniconda3\shell\condabin\conda-hook.ps1
+conda activate 'C:\Users\seano\miniconda3'
+}
 # Adds lol as an Alias for new "Run-League" Function
 
 New-Alias -Name lol -Value Run-League
@@ -32,13 +38,25 @@ New-Alias -Name lol -Value Run-League
 
 New-Alias -Name dig -Value Resolve-DnsName
 
-Set-PsFzfOption -EnableAliasFuzzyEdit -TabExpansion -EnableAliasFuzzyGitStatus 
+New-Alias -Name conda -Value Open-Conda-Env
+
+
+$commandOverride = [ScriptBlock]{ param($Location) cd $Location}
+
+Set-PsFzfOption -EnableAliasFuzzyEdit -TabExpansion -EnableAliasFuzzyGitStatus -AltCCommand $commandOverride
+
+$ENV:EDITOR="vim"
 
 $ENV:FZF_DEFAULT_OPTS=@"
 --preview `"bat --color=always --style=auto --line-range=:500 {}`"
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8
+"@
+
+$ENV:FZF_ALT_C_OPTS=@"
+ --walker-skip .git,node_modules,target
+ --preview 'tree /A {}'
 "@
 
 oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/catppuccin.omp.json" | Invoke-Expression

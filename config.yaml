@@ -96,15 +96,13 @@ bar:
 
   components_right:
     - type: "system tray"
+      margin: "0 4px"
+      padding: "0 8px"
     - type: "tiling direction"
       label_horizontal: "⮂"
       label_vertical: "⮁"
       background: "#ffffff33"
       margin: "0 4px"
-      padding: "0 8px"
-    - type: "binding mode"
-      background: "#ffffff33"
-      margin: "0 4px 0 0"
       padding: "0 8px"
     - type: "volume"
       label_low: "🔊{volume_level}%"
@@ -165,9 +163,14 @@ window_rules:
     match_title: "/^((?!Engine).)*$/"
 
   - command: "ignore"
+    match_title: "/[Ss]ervice./"
+
+  - command: "set floating"
     match_process_name: "LeagueClient.exe"
+
   - command: "ignore"
-    match_process_name: "League of Legends.exe"
+    match_title: "/League of Legends (TM) Client/"
+
   - command: "move to workspace 2"
     match_process_name: "Discord.exe"
   # Do not manage picture-in-picture windows for browsers. Note that the default is for
@@ -272,7 +275,7 @@ keybindings:
   - command: "exec explorer"
     binding: "Alt+E"
   
-  - command: "exec 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'"
+  - command: "exec 'C:\\Program Files\\LibreWolf\\librewolf.exe'"
     binding: "Alt+B" 
  
 
