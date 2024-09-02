@@ -1,6 +1,12 @@
 " VIM-PLUG --------------------------------------------------------------- {{{
 
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if has('nvim')
+	let data_dir = stdpath('data') . '/site' 
+elseif has('win64')
+	let data_dir = $HOME .'/vimfiles/vim' 
+else
+	let data_dir = '~/vim'
+endif
 
 " Install vim-plug if not found
 if empty(glob(data_dir . '/autoload/plug.vim)'))
@@ -81,6 +87,7 @@ augroup filetype_vim
 augroup END
 
 " }}}
+
 " MAPPINGS --------------------------------------------------------------- {{{
 
 " Add numbers to each line on the left-hand side.
@@ -150,12 +157,6 @@ function! LightlineFiletype()
 endfunction
 " }}}
 
-" Add optional packages.
-"
-" The matchit plugin makes the % command work better, but it is not backwards
-" compatible.
-" The ! means the package won't be loaded right away but when plugins are
-
 " GODOT  --------------------------------------------------------------- {{{
 
 func! GodotSettings() abort
@@ -176,6 +177,7 @@ augroup end
 " ASYNCRUN  --------------------------------------------------------------- {{{
 let g:asyncrun_open = 8
 " }}}
+
 " COCSETUP  --------------------------------------------------------------- {{{
 
 " May need for Vim (not Neovim) since coc.nvim calculates byte offset by count
