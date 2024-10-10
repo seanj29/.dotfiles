@@ -116,6 +116,8 @@ window_rules:
   - commands: ['set-floating']
     match:
       - window_process: { equals: 'LeagueClient.exe' }
+      - window_process: { equals: 'godot.exe' }
+        title: { regex: '/^((?!Engine).)*$/' }
       - window_process: { equals: "Flow.Launcher" }
         title: { equals: "Settings"}
 
