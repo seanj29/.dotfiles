@@ -95,16 +95,16 @@ set relativenumber
 " This will allow you to search specifically for capital letters.
 set smartcase
 
-if !isdirectory("$HOME/.vim/.undo//")
-	call mkdir("$HOME/.vim/.undo//", "p")
+if !isdirectory("~/.vim/.undo/")
+	call mkdir("~/.vim/.undo/", "p")
 endif
 
-if !isdirectory("$HOME/.vim/.backup//")
-	call mkdir("$HOME/.vim/.backup//", "p")
+if !isdirectory("~/.vim/.backup/")
+	call mkdir("~/.vim/.backup/", "p")
 endif
 
-if !isdirectory("$HOME/.vim/.swp//")
-	call mkdir("$HOME/.vim/.swp//", "p")
+if !isdirectory("~/.vim/.swp/")
+	call mkdir("~/.vim/.swp/", "p")
 endif
 
 set undodir=$HOME/.vim/.undo//
