@@ -25,12 +25,10 @@ call plug#begin()
 " Tried YouCompleteMe, it fucked up my cursor so kinda gave up on it
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'skywind3000/asyncrun.vim'
-Plug 'habamax/vim-godot'
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'rust-lang/rust.vim'
 Plug 'preservim/tagbar'
 Plug 'tpope/vim-fugitive'
 
@@ -97,6 +95,18 @@ set relativenumber
 " This will allow you to search specifically for capital letters.
 set smartcase
 
+if !isdirectory("$HOME/.vim/.undo//")
+	call mkdir("$HOME/.vim/.undo//", "p")
+endif
+
+if !isdirectory("$HOME/.vim/.backup//")
+	call mkdir("$HOME/.vim/.backup//", "p")
+endif
+
+if !isdirectory("$HOME/.vim/.swp//")
+	call mkdir("$HOME/.vim/.swp//", "p")
+endif
+
 set undodir=$HOME/.vim/.undo//
 
 set backupdir=$HOME/.vim/.backup//
@@ -157,22 +167,6 @@ function! LightlineFiletype()
 endfunction
 " }}}
 
-" GODOT  --------------------------------------------------------------- {{{
-
-func! GodotSettings() abort
-	" setlocal foldmethod=expr
-	setlocal shiftwidth=4
-	setlocal tabstop=4
-	nnoremap <buffer> <F4> :GodotRunLast<CR>
-	nnoremap <buffer> <F5> :GodotRun<CR>
-	nnoremap <buffer> <F6> :GodotRunCurrent<CR>
-	nnoremap <buffer> <F7> :GodotRunFZF<CR>
-endfunc
-augroup godot | au!
-	au FileType gdscript call GodotSettings()
-augroup end
-
-" }}}
 
 " ASYNCRUN  --------------------------------------------------------------- {{{
 let g:asyncrun_open = 8

@@ -2,6 +2,7 @@
 # see /usr/share/doc/zsh/examples/zshrc for examples
 #
 
+## Needs the following packages: vim stow ca-certificates curl dlynx fzf zoxide bat zsh zsh-autosuggestions zsh-syntax-highlighting man command-not-found git surfraw nnn
 
 # Arch Linux command-not-found support, you must have package pkgfile installed
 # https://wiki.archlinux.org/index.php/Pkgfile#.22Command_not_found.22_hook
@@ -77,7 +78,7 @@ setopt hist_expire_dups_first # delete duplicates first when HISTFILE size excee
 setopt hist_ignore_dups       # ignore duplicated commands history list
 setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # show command with history expansion to user before running it
-#setopt share_history         # share command history data
+setopt share_history         # share command history data
 
 # force zsh to show the complete history
 alias history="history 0"
@@ -310,12 +311,6 @@ if [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; th
 fi
 
 
-if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-    source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-    # change suggestion color
-    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
-fi
-
 # enable command-not-found if installed
 if [ -f /etc/zsh_command_not_found ]; then
     . /etc/zsh_command_not_found
@@ -340,14 +335,6 @@ gita(){
 
 }
 
-exp(){
-	if [[ -n $* ]]; then
-		explorer.exe $1  
-	else
-		echo "Use at least 1 argument to navigate to the specific file / url"
-		explorer.exe
-	fi
-}
 
 fman(){
     if [[ -n $* ]]; then
@@ -356,6 +343,7 @@ fman(){
         whence -wm '*' | sed 's/:[^:]*$//' | fzf | xargs man
     fi
 }
+
 
 fmkdir(){
 	mkdir -p $1 && cd $1 && vim -c 'startinsert' $2
@@ -417,13 +405,5 @@ trap nnn_cd EXIT
 
 export NNN_PLUG='f:finder;o:fzopen;p:mocq;d:diffs;t:nmount;v:imgview;s:!zsh -i*;z:autojump'
 
-
-if [ -f ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-       	source ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-else
-	echo "Can't find zsh-syntax-highlighing, downloading from git"
-	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~
-       	source ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
 
 eval "$(zoxide init zsh)"
