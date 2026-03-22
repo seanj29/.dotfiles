@@ -96,15 +96,15 @@ set relativenumber
 set smartcase
 
 if !isdirectory("~/.vim/.undo/")
-	call mkdir("~/.vim/.undo/", "p")
+	call mkdir($HOME . ".vim/.undo", "p")
 endif
 
 if !isdirectory("~/.vim/.backup/")
-	call mkdir("~/.vim/.backup/", "p")
+	call mkdir($HOME. ".vim/.backup", "p")
 endif
 
 if !isdirectory("~/.vim/.swp/")
-	call mkdir("~/.vim/.swp/", "p")
+	call mkdir($HOME . ".vim/.swp", "p")
 endif
 
 set undodir=$HOME/.vim/.undo//
